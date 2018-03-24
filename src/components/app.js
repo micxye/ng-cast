@@ -5,6 +5,7 @@ angular.module('video-player')
   templateUrl: "src/templates/app.html",
 
   controller: function(youTube) { 
+    // this.query = '';
     this.videos = [];
     this.currentVideo = null;
 
@@ -12,17 +13,8 @@ angular.module('video-player')
       this.videos = videos;
       this.currentVideo = videos[0];
     }
-    this.changeVideos = this.changeVideos.bind(this)
 
-    youTube.search({
-      key:  window.YOUTUBE_API_KEY,
-      max: 5,
-      query: ''
-    }).then(function (response) {
-      this.changeVideos(response.items)
-    }, function (err) {
-      console.log(err);
-    });    
+
     //call youtube.search
     //youtube.search returns a promise
     //On promise, use .then() function 
@@ -32,8 +24,18 @@ angular.module('video-player')
     this.handleClick = (video) => {
       this.currentVideo = video
     };
+
+    this.searchForVideos = (searchquery) => {
+      var options = {
+        key:  window.YOUTUBE_API_KEY,
+        max: 5,
+        query: searchquery
+      }
+      console.log(options)
+      youTube.search(options).then((response) => {console.log(response);this.changeVideos(response.data.items)},
+      (err) => {console.log(err)});  
+    }
+
+    this.searchForVideos('')
   }
-
-  
-
 });
