@@ -1,18 +1,18 @@
 angular.module('video-player')
 
-.component('search', {
-  bindings :{
-    searchforvideos: '<',
-    // query:'<'
-  },
-  controller : function() {
-    this.query = '';
-    this.clearquery = () => {
+  .component('search', {
+    bindings :{
+      searchforvideos: '<',
+      // query:'<'
+    },
+    controller : function() {
       this.query = '';
-    }
-  },
-  templateUrl: "src/templates/search.html"
-});
+      this.clearquery = () => {
+        this.query = '';
+      };
+    },
+    templateUrl: "src/templates/search.html"
+  });
 
 
 
